@@ -23,6 +23,13 @@ RUN pip --no-cache-dir --disable-pip-version-check install --force-reinstall  --
 # Second stage the actual container
 FROM ${BASE_IMAGE} as final
 
+RUN apt-get update && \
+    apt-get install --yes \
+        openssh-client \
+        sshpass \
+    && \
+    apt-get autoremove --yes && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/log/apt/* /var/log/dpkg*
+
 # Copy in the python packages from the builder image
 COPY --from=builder /root/.local/ /root/.local/
 
