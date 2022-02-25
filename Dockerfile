@@ -17,7 +17,8 @@ RUN apt-get update && \
 RUN pip --no-cache-dir --disable-pip-version-check install --force-reinstall  --user \
         ansible==5.4.0 \
         ansible-core==2.12.2 \
-        certifi
+        certifi \
+        jmespath
 
 # Second stage the actual container
 FROM ${BASE_IMAGE} as final
